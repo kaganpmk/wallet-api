@@ -2,8 +2,10 @@ import ratelimit from '../config/upstash.js';
 
 const rateLimiter = async(req,res,next) => {
     try {
-        const identifier = req.body?.user_id || req.params?.userId || req.ip
+        const identifier = req.headers['x-user-id'] || req.ip;
         const {success} = await ratelimit.limit(identifier)
+
+        console.log("Limiti Kontrol Edilen Kimlik:", identifier);
 
         if(!success){
             console.log("çok fazla")
