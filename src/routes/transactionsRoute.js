@@ -3,6 +3,8 @@ import {getTransactionsByUserId, createTransaction, deleteTransaction, getSummar
 
 const router = express.Router();
 
+router.use(rateLimiter);
+
 router.get("/:userId", getTransactionsByUserId);
 router.post("/", createTransaction);
 router.delete("/:id", deleteTransaction);
